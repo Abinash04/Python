@@ -2,14 +2,23 @@
 
 #What is the largest prime factor of the number 600851475143 ?
 
-j=input("enter a number to find its prime factor(s)\n")
-prime=[]
+z="largest prime factor of the number 600851475143\n"
+print z
 
-for a in range(2,10):
-        k=j%a
-        print "\-",a,"\-"
-        if (k==0):
-            if (a/2==0):
-                prime.append(a)
+def prime_factor(z):
+	n = z
+	prime = 2
+	while True:
+		if n % prime != 0:
+			prime += 1
+		else:
+			n = n / prime
+		
+		if n == prime:
+			return prime
+			break
+
+print prime_factor(600851475143)
+
+
         
-print prime
