@@ -1,3 +1,7 @@
+#A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+
+#Find the largest palindrome made from the product of two 3-digit numbers.
+
 import sys
 import re
 import os
@@ -14,6 +18,7 @@ def reverse(j):
                 rev = (rev * 10) + rem
                 j = j // 10
         return rev
+		
 num=999
 def recursive(num):
         for c in list(reversed(range(100,1000))):
@@ -22,15 +27,12 @@ def recursive(num):
                 a=reverse(k)
                 
                 if c == last:
-                        #print num
-                        #print last
                         recursive(num-1)
+						
                 if a == k:
                         if len(str(a))== 6 and re.match('^9',str(a)):
                                 print "found",a
-                                #thefile = open('test.txt', 'w')
                                 fo = open (thefile,'w')
-                                
                                 fo.write("The largest palindrome made from the product of two 3-digit numbers:")
                                 print>>fo,a
                                 fo.close()
