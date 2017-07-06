@@ -1,9 +1,7 @@
 import sys
 import re
-import os
-#sys.setrecursionlimit(2000)
+sys.setrecursionlimit(2000)
 import time
-thefile = os.path.join(os.path.dirname(__file__), '4.py_output.txt')
 start = time.time()
 
 
@@ -15,6 +13,7 @@ def reverse(j):
                 j = j // 10
         return rev
 num=999
+palindrome=[]
 def recursive(num):
         for c in list(reversed(range(100,1000))):
                 last=list(reversed(range(100,1000)))[-1]
@@ -28,15 +27,14 @@ def recursive(num):
                 if a == k:
                         if len(str(a))== 6 and re.match('^9',str(a)):
                                 print "found",a
-                                #thefile = open('test.txt', 'w')
-                                fo = open (thefile,'w')
-                                
-                                fo.write("The largest palindrome made from the product of two 3-digit numbers:")
-                                print>>fo,a
-                                fo.close()
+                                thefile = open('test.txt', 'w')
+                                print>>thefile,a
                                 break
-                                  
+                                #palindrome.append(a)
+                        
+                        
 recursive(num)
+#print palindrome
 end = time.time()
 print(end - start)
     
