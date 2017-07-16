@@ -37,4 +37,6 @@ recursive(num)
 #print palindrome
 end = time.time()
 print(end - start)
+def multiply(a,b):
+        a * b
     
