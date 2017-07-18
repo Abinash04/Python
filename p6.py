@@ -4,5 +4,5 @@ num = raw_input('Enter a string to find if its a PALINDROME?')
 
 rev = reverse(num)
 
-print rev
+print 'Palindrome ',rev
 
