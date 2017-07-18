@@ -53,5 +53,5 @@ for m in one:
 print 'matched list:', f
 
 g = [ item for item in a if (item in b)]
-print set(g)
+print 'List in G: ',set(g)
         
