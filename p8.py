@@ -6,6 +6,8 @@ Rock beats scissors
 Scissors beats paper
 Paper beats rock'''
 
+import sys
+a='yes'
 def game():
     print "1. Rock\n"
     print "2. Scissors\n"
@@ -14,7 +16,7 @@ def game():
     print 'Player 1 chose: ', ask1
     ask2 = raw_input('Enter your choice : Player 2 \n')
     print 'Player 2 chose: ', ask2
-    ask2 = raw_input('Enter your choice : Player 2 \n')
+    
     if ask1 == 'Rock' and ask2 == 'Scissors':
         print "Congratulations !!! Player 1. You are the Winner! \n"
         again = raw_input('Player 1, Do you want to start a New game ? \n')
@@ -27,10 +29,14 @@ def game():
     else:
         print "Congratulations !!! Player 2. You are the Winner! \n"
         again = raw_input('Player 2, Do you want to start a New game ? \n')
+    if again == a:
+        game()
+    else:
+        print 'exiting...'
+        sys.exit()
 
+game()
 
-while again == 'yes':
-    game()
 
 
 
