@@ -1,1 +1,20 @@
+# TWO POINTER APPROACH
+
+## 1. TWO SUM
+If we are given a sorted array for which we need to find the pairs whose sum will be equal to a given target.
+for example: 
+numbers = [2, 7, 15, 11]
+target = 9
+
+we will take two pointers- left and right.
+left = 0
+right = len(numbers) - 1
+while 
+if numbers[left] + numbers[right] > target:
+  # 2 + 11 = 13
+  # 13 > 9
+  
+elif numbers[left] + numbers[right] < target:
+
+else:
 
