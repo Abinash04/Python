@@ -1,18 +1,17 @@
-import pdb
 class Solution:
-    def twoSum(self, nums: list[int], target: int) -> list[int]:
-        left, right = 0, len(nums) - 1
-        nums_with_index = sorted(enumerate(nums), key= lambda x:x[1]) # a tuple with 1st element as index and second as original value
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        left = 0
+        right = len(nums) - 1
+        result_index_list = []
         while left < right:
-            sum = nums_with_index[left][1] + nums_with_index[right][1]
-            if sum > target:
+            if nums[left] + nums[right] > target:
                 right -=1
-            elif sum < target:
+            elif nums[left] + nums[right] < target:
                 left += 1
             else:
-                return [nums_with_index[left][0], nums_with_index[right][0]]
-            
-
+                result_index_list.append(left,right)
+            left +=1
+        return result_index_list
 
 sol = Solution()
-print(sol.twoSum([1,2,3], 3))
+print(sol.twoSum([2,7,11,15]), 9)
