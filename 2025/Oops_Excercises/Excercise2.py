@@ -150,23 +150,88 @@ acc.__balance = 99999
 print(acc.get_balance())
 print(acc.__dict__)
 
-# Q3. Single Inheritance & Overriding
-# Create a Vehicle class with a max_speed and mileage attributes, and a display() method.
-# Create a subclass Car that overrides display() to include an extra attribute seats.
 
-# Q4. Multiple Inheritance & MRO
-# Create two classes Electric and Petrol both having a fuel_type() method.
-# Create a HybridCar class that inherits from both and resolves ambiguity using MRO.
-# Show the HybridCar's MRO.
+"""Q3. Single Inheritance & Overriding
+Create a Vehicle class with a max_speed and mileage attributes, and a display() method.
+Create a subclass Car that overrides display() to include an extra attribute seats."""
+from dataclasses import dataclass
+@dataclass
+class Vehicle:
+    max_speed: int
+    mileage: int
 
-# Q5. Class vs Instance vs Static Methods
-# Create a MathOps class with:
+    def display(self):
+        return f"Car max speed: {self.max_speed} km/hr and mileage: {self.mileage}/litre"
 
-# A @classmethod called from_string that takes a string "3,4" and returns a MathOps instance with two numbers.
+@dataclass
+class Car(Vehicle):
+    seats: int
 
-# A @staticmethod called is_even that checks if a number is even.
+    def display(self):
+        base_info = super().display()
+        return f"{base_info} and has {self.seats} seats!"
+    
 
-# A normal instance method add that returns the sum of the two numbers.
+c1 = Car(160,16,4)
+print(c1.display())
+
+
+"""Q4. Multiple Inheritance & MRO
+Create two classes Electric and Petrol both having a fuel_type() method.
+Create a HybridCar class that inherits from both and resolves ambiguity using MRO.
+Show the HybridCar's MRO."""
+class Electric:
+    def fuel_type(self):
+        return f"Fuel Type: Electric"
+
+class Petrol:
+    def fuel_type(self):
+        return f"Fuel Type: Petrol"
+
+class HybridCar(Electric, Petrol):
+    def fuel_type(self):
+        electricity_type = super().fuel_type()
+        petrol_type = Petrol.fuel_type(self)
+        return f"MRO: electricity - {electricity_type}, petrol - {petrol_type}"
+
+print(HybridCar.__mro__)
+print(HybridCar.mro())
+print(HybridCar().fuel_type())
+
+
+"""Q5. Class vs Instance vs Static Methods
+Create a MathOps class with:
+
+A @classmethod called from_string that takes a string "3,4" and returns a MathOps instance with two numbers.
+
+A @staticmethod called is_even that checks if a number is even.
+
+A normal instance method add that returns the sum of the two numbers."""
+
+
+class MathOps:
+    """A class to check all types of methods"""
+
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+
+    @classmethod
+    def from_string(cls, str1):
+        num1, num2 = map(int, str1.split(","))
+        return cls(num1, num2)
+
+    @staticmethod
+    def is_even(value):
+        return value % 2 == 0
+
+    def add(self):
+        return self.num1 + self.num2
+    
+
+m = MathOps.from_string("4,9")
+print(m.is_even(9))
+print(m.add())
 
 # Q6. Operator Overloading
 # Create a Point class with x and y attributes.
