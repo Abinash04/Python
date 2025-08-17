@@ -233,37 +233,135 @@ m = MathOps.from_string("4,9")
 print(m.is_even(9))
 print(m.add())
 
-# Q6. Operator Overloading
-# Create a Point class with x and y attributes.
-# Overload the + operator to add two points, and the == operator to compare them.
+"""Q6. Operator Overloading
+Create a Point class with x and y attributes.
+Overload the + operator to add two points, and the == operator to compare them."""
+from dataclasses import dataclass
+@dataclass
+class Point:
+    x: int
+    y: int
 
-# Q7. Property Decorators
-# Create a Temperature class where:
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+    
+    def __str__(self):
+        return f"Point({self.x},{self.y})"
 
-# celsius is stored internally.
+p1 = Point(20,30)
+p2 = Point(50,80)
+p3 = Point(150,180)
+print(p1)
+print(p1+p2)
+print(p1+p2+p3)
 
-# You can get and set fahrenheit using @property and setter methods.
 
-# Setting fahrenheit updates the celsius value automatically.
+"""Q7. Property Decorators
+Create a Temperature class where:
 
-# Q8. Composition vs Inheritance
-# Create:
+celsius is stored internally.
 
-# A Battery class with a method battery_info().
+You can get and set fahrenheit using @property and setter methods.
 
-# An Engine class with a method engine_info().
+Setting fahrenheit updates the celsius value automatically."""
 
-# A Car class that uses composition to include both a battery and engine, instead of inheriting from them.
+class Temperature:
+    def __init__(self, celcius=0):
+        self._celcius = celcius
 
-# Q9. Polymorphism
-# Create an abstract Payment class with an abstract pay() method.
-# Implement CreditCardPayment and UPIPayment that process payments differently.
-# Write a function process_payment(payment_obj, amount) that works with any payment method.
+    @property
+    def farenheit(self):
+        return (self._celcius * 9/5) + 32
+    
+    @farenheit.setter
+    def farenheit(self, value):
+        self._celcius =  (value - 32) * 5/9
+    
 
-# Q10. Dunder Methods & String Representation
-# Create a Book class with attributes title and author.
-# Implement:
+t = Temperature()
+print(t.farenheit)
 
-# __str__ to print "Title by Author".
+t.farenheit = 212
+print(t._celcius)
 
-# __repr__ to return "Book(title='...', author='...')"."""
+"""Q8. Composition vs Inheritance
+Create:
+
+A Battery class with a method battery_info().
+
+An Engine class with a method engine_info().
+
+A Car class that uses composition to include both a battery and engine, instead of inheriting from them."""
+
+class Battery:
+    def battery_info(self):
+        return "Amaron battery"
+
+class Engine:
+    def engine_info(self):
+        return "DLS Engine - 3 cylinder"
+
+class Car:
+    def __init__(self):
+        self.battery = Battery()
+        self.engine = Engine()
+
+    def car_info(self):
+        return f"Car has an engine:{self.engine.engine_info()} and battery:{self.battery.battery_info()}."
+
+
+c = Car()
+print(c.car_info())
+
+"""Q9. Polymorphism
+Create an abstract Payment class with an abstract pay() method.
+Implement CreditCardPayment and UPIPayment that process payments differently.
+Write a function process_payment(payment_obj, amount) that works with any payment method."""
+from abc import ABC, abstractmethod
+class Payment(ABC):
+    @abstractmethod
+    def pay(self, amount):
+        pass
+
+class CreditCardPayment(Payment):
+    def pay(self, amount):
+        return f"Paid {amount} using Credit Card."
+
+class UPIPayment(Payment):
+    def pay(self, amount):
+        return f"Paid {amount} using UPI."
+
+def process_payment(payment_obj, amount):
+    return payment_obj.pay(amount)
+
+cc = CreditCardPayment()
+upi = UPIPayment()
+
+print(process_payment(cc, 1000))
+print(process_payment(upi, 2000))
+
+
+
+"""Q10. Dunder Methods & String Representation
+Create a Book class with attributes title and author.
+Implement:
+
+__str__ to print "Title by Author".
+
+__repr__ to return "Book(title='...', author='...')"."""
+
+class Book:
+    """Book: title and author details"""
+    def __init__(self, author, title):
+        self.title = title
+        self.author = author
+
+    def __str__(self):
+        return f"Title {self.title} by author: {self.author}"
+
+    def __repr__(self):
+        return f"Book(title='{self.title}', author='{self.author}')"
+    
+b = Book("J.K.Rowling", "Fire and Blood")
+print(b)
+print(repr(b))
